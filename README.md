@@ -1,4 +1,4 @@
-# Enlog
+# Enlog [![codecov](https://codecov.io/gh/malekim/enlog/branch/master/graph/badge.svg)](https://codecov.io/gh/malekim/enlog)
 
 An enchanted logging library for GO. It supports colored output and creating .log files.
 
