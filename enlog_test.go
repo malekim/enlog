@@ -27,6 +27,15 @@ func TestNew(t *testing.T) {
 	testRemoveFiles(t, []string{"info", "debug", "error", "trace"})
 }
 
+func TestEmptyAfterLogEvent(t *testing.T) {
+	l := New()
+
+	if l.AfterLog == nil {
+		t.Fatal("AfterLog is nil")
+	}
+	l.Info("AfterLog works as expected")
+}
+
 func TestNewError(t *testing.T) {
 	// force an error
 	// var guard *monkey.PatchGuard
