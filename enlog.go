@@ -101,6 +101,11 @@ func New() *Enlog {
 	// magenta
 	logger.TraceColor = logTypes["trace"].defaultColor
 
+	// default event
+	logger.SetAfterLogEvent(func(logType string, message string) {
+		return
+	})
+
 	return logger
 }
 
