@@ -14,8 +14,15 @@ jobs:
         go-version: ${{ matrix.go-version }}
     - name: Checkout code
       uses: actions/checkout@v2
+    - name: Get dependencies
+      run: |
+        go get -v -t -d ./...
+        go install golang.org/x/lint/golint
     - name: Test
       run: go test -gcflags=-l -coverprofile='coverage.txt' -covermode=atomic ./...
+    - name: Lint
+      run: |
+        golint -set_exit_status ./...
     - name: Codecov
       uses: codecov/codecov-action@v1
       with:
