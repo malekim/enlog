@@ -7,14 +7,27 @@ import (
 	"os"
 )
 
-var ColorRed uint8 = 31
-var ColorGreen uint8 = 32
-var ColorYellow uint8 = 33
-var ColorBlue uint8 = 34
-var ColorMagenta uint8 = 35
-var ColorCyan uint8 = 36
-var ColorWhite uint8 = 37
+// Colors used to color the terminal output
+const (
+	ColorRed     uint8 = 31
+	ColorGreen   uint8 = 32
+	ColorYellow  uint8 = 33
+	ColorBlue    uint8 = 34
+	ColorMagenta uint8 = 35
+	ColorCyan    uint8 = 36
+	ColorWhite   uint8 = 37
+)
 
+// Types of logs
+const (
+	TypeInfo  string = "info"
+	TypeDebug string = "debug"
+	TypeError string = "error"
+	TypeTrace string = "trace"
+)
+
+// An Enlogger containns all methods
+// that may be called to log something
 type Enlogger interface {
 	Info(string)
 	Infof(log string, args ...interface{})
@@ -27,19 +40,22 @@ type Enlogger interface {
 	SetAfterLogEvent(AfterLogEvent)
 }
 
+// AfterLogEvent is a method called
+// after every log event
 type AfterLogEvent func(logType string, message string)
 
 // Enlog struct
 type Enlog struct {
-	InfoLog    *log.Logger
-	InfoColor  uint8
-	DebugLog   *log.Logger
-	DebugColor uint8
-	ErrorLog   *log.Logger
-	ErrorColor uint8
-	TraceLog   *log.Logger
-	TraceColor uint8
-	AfterLog   AfterLogEvent
+	InfoLog     *log.Logger
+	InfoLogType logType
+	InfoColor   uint8
+	DebugLog    *log.Logger
+	DebugColor  uint8
+	ErrorLog    *log.Logger
+	ErrorColor  uint8
+	TraceLog    *log.Logger
+	TraceColor  uint8
+	AfterLog    AfterLogEvent
 }
 
 type logType struct {
@@ -48,30 +64,37 @@ type logType struct {
 	defaultColor uint8
 }
 
-var logTypes map[string]logType = map[string]logType{
-	"info": {
+var (
+	logTypeInfo = logType{
 		file:         "info.log",
 		prefix:       "INFO",
 		defaultColor: ColorGreen,
-	},
-	"debug": {
+	}
+	logTypeDebug = logType{
 		file:         "debug.log",
 		prefix:       "DEBUG",
 		defaultColor: ColorCyan,
-	},
-	"error": {
+	}
+	logTypeError = logType{
 		file:         "error.log",
 		prefix:       "ERROR",
 		defaultColor: ColorRed,
-	},
-	"trace": {
+	}
+	logTypeTrace = logType{
 		file:         "trace.log",
 		prefix:       "TRACE",
 		defaultColor: ColorMagenta,
-	},
+	}
+)
+
+var logTypes map[string]logType = map[string]logType{
+	TypeInfo:  logTypeInfo,
+	TypeDebug: logTypeDebug,
+	TypeError: logTypeError,
+	TypeTrace: logTypeTrace,
 }
 
-func NewLog(ltype string) *log.Logger {
+func newLog(ltype string) *log.Logger {
 	lt := logTypes[ltype]
 	file, err := os.OpenFile(lt.file, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
@@ -86,20 +109,20 @@ func NewLog(ltype string) *log.Logger {
 // New enlog
 func New() *Enlog {
 	logger := &Enlog{}
-	logger.InfoLog = NewLog("info")
-	logger.DebugLog = NewLog("debug")
-	logger.ErrorLog = NewLog("error")
-	logger.TraceLog = NewLog("trace")
+	logger.InfoLog = newLog(TypeInfo)
+	logger.DebugLog = newLog(TypeDebug)
+	logger.ErrorLog = newLog(TypeError)
+	logger.TraceLog = newLog(TypeTrace)
 
 	// default colors
 	// green
-	logger.InfoColor = logTypes["info"].defaultColor
+	logger.InfoColor = logTypes[TypeInfo].defaultColor
 	// cyan
-	logger.DebugColor = logTypes["debug"].defaultColor
+	logger.DebugColor = logTypes[TypeDebug].defaultColor
 	// red
-	logger.ErrorColor = logTypes["error"].defaultColor
+	logger.ErrorColor = logTypes[TypeError].defaultColor
 	// magenta
-	logger.TraceColor = logTypes["trace"].defaultColor
+	logger.TraceColor = logTypes[TypeTrace].defaultColor
 
 	// default event
 	logger.SetAfterLogEvent(func(logType string, message string) {
@@ -109,7 +132,7 @@ func New() *Enlog {
 	return logger
 }
 
-// SetAfterLog event
+// SetAfterLogEvent is a method to set AfterLogEvent
 func (l *Enlog) SetAfterLogEvent(afterLog AfterLogEvent) {
 	l.AfterLog = afterLog
 }
