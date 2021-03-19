@@ -5,8 +5,8 @@ import "fmt"
 // Trace log
 func (l *Enlog) Trace(log string) {
 	// turn on color
-	fmt.Printf("\033[1;%dm", l.TraceColor)
-	l.TraceLog.Output(2, log)
+	fmt.Printf("\033[1;%dm", l.TraceLog.color)
+	l.TraceLog.handler.Output(2, log)
 	// turn off color
 	fmt.Print("\033[0m")
 	l.AfterLog("trace", log)

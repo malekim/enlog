@@ -21,9 +21,6 @@ func TestInfo(t *testing.T) {
 	if ltype != "info" {
 		t.Error("Expected", "info", "got", ltype)
 	}
-
-	testFile(t, "info")
-	testRemoveFiles(t, []string{"info", "debug", "error", "trace"})
 }
 
 func TestInfof(t *testing.T) {
@@ -53,7 +50,13 @@ func TestInfof(t *testing.T) {
 	if ltype != "info" {
 		t.Error("Expected", "info", "got", ltype)
 	}
+}
+
+func TestInfoFile(t *testing.T) {
+	l := New()
+	l.InfoLog.SetUseFile(true)
+	l.Info("test")
 
 	testFile(t, "info")
-	testRemoveFiles(t, []string{"info", "debug", "error", "trace"})
+	testRemoveFiles(t, []string{"info"})
 }
