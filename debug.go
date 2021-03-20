@@ -2,7 +2,9 @@ package enlog
 
 import "fmt"
 
-// Debug log
+// Debug is a method that logs messages
+// to DebugLog. By default messages are shown
+// in cyan color.
 func (l *Enlog) Debug(log string) {
 	// turn on color
 	fmt.Printf("\033[1;%dm", l.DebugLog.color)
@@ -12,7 +14,9 @@ func (l *Enlog) Debug(log string) {
 	l.AfterLog("debug", log)
 }
 
-// Debugf log
+// Debugf is a method that logs messages
+// to DebugLog. By default messages are shown
+// in cyan color.
 func (l *Enlog) Debugf(log string, args ...interface{}) {
 	l.Debug(fmt.Sprintf(log, args...))
 }

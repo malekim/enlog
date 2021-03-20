@@ -2,7 +2,9 @@ package enlog
 
 import "fmt"
 
-// Info log
+// Info is a method that logs messages
+// to InfoLog. By default messages are shown
+// in green color.
 func (l *Enlog) Info(log string) {
 	// Output helps to save information about line and source file
 	fmt.Printf("\033[1;%dm", l.InfoLog.color)
@@ -11,7 +13,9 @@ func (l *Enlog) Info(log string) {
 	l.AfterLog("info", log)
 }
 
-// Infof log
+// Infof is a method that logs messages
+// to InfoLog. By default messages are shown
+// in green color.
 func (l *Enlog) Infof(log string, args ...interface{}) {
 	l.Info(fmt.Sprintf(log, args...))
 }

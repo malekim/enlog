@@ -2,7 +2,9 @@ package enlog
 
 import "fmt"
 
-// Trace log
+// Trace is a method that logs messages
+// to TraceLog. By default messages are shown
+// in magenta color.
 func (l *Enlog) Trace(log string) {
 	// turn on color
 	fmt.Printf("\033[1;%dm", l.TraceLog.color)
@@ -12,7 +14,9 @@ func (l *Enlog) Trace(log string) {
 	l.AfterLog("trace", log)
 }
 
-// Tracef log
+// Tracef is a method that logs messages
+// to TraceLog. By default messages are shown
+// in magenta color.
 func (l *Enlog) Tracef(log string, args ...interface{}) {
 	l.Trace(fmt.Sprintf(log, args...))
 }

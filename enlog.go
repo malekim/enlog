@@ -11,8 +11,8 @@ const (
 	ColorWhite   uint8 = 37
 )
 
-// An Enlogger containns all methods
-// that may be called to log something
+// An Enlogger contains all methods that
+// may be called to log messages.
 type Enlogger interface {
 	Info(string)
 	Infof(log string, args ...interface{})
@@ -25,11 +25,14 @@ type Enlogger interface {
 	SetAfterLogEvent(AfterLogEvent)
 }
 
-// AfterLogEvent is a method called
-// after every log event
+// AfterLogEvent is a method called after
+// every log event. It is right place to
+// add custom behaviour after logging, for
+// instance to send an email after error.
 type AfterLogEvent func(logType string, message string)
 
-// Enlog struct
+// Enlog struct contains all logger types
+// provided by this package.
 type Enlog struct {
 	InfoLog  *logger
 	DebugLog *logger
@@ -51,7 +54,10 @@ func newLog(prefix string, useFile bool, filePath string, color uint8) *logger {
 	return l
 }
 
-// New enlog
+// New creates an Enlog struct. The struct contains
+// fields with all log types provided by this package:
+// InfoLog, DebugLog, ErrorLog, TraceLog
+// Read more: https://malekim.github.io/enlog
 func New() *Enlog {
 	l := &Enlog{}
 	l.InfoLog = newLog("INFO", false, "info.log", ColorGreen)
@@ -67,7 +73,11 @@ func New() *Enlog {
 	return l
 }
 
-// SetAfterLogEvent is a method to set AfterLogEvent
+// SetAfterLogEvent is a method to set AfterLogEvent.
+// AfterLogEvent is a method called after
+// every log event. It is right place to
+// add custom behaviour after logging, for
+// instance to send an email after error.
 func (l *Enlog) SetAfterLogEvent(afterLog AfterLogEvent) {
 	l.AfterLog = afterLog
 }
