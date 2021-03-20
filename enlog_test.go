@@ -13,12 +13,7 @@ import (
 )
 
 func TestNew(t *testing.T) {
-	var l Enlogger
-	l = New()
-
-	if l == nil {
-		t.Fatal("Error opening file")
-	}
+	var l Enlogger = New()
 
 	lType := reflect.TypeOf(l)
 
