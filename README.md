@@ -1,4 +1,5 @@
-# Enlog [![codecov](https://codecov.io/gh/malekim/enlog/branch/master/graph/badge.svg)](https://codecov.io/gh/malekim/enlog)
+# Enlog 
+[![codecov](https://codecov.io/gh/malekim/enlog/branch/master/graph/badge.svg)](https://codecov.io/gh/malekim/enlog)
 
 An enchanted logging library for GO. It supports colored output and writing to .log files.
 
@@ -201,6 +202,7 @@ l.InfoLog.GetColor() // returns 31
 
 Road map for future releases:
 - custom date and time format of logs
+- chunk log files
 
 ## Running tests
 
