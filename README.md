@@ -197,6 +197,11 @@ l.InfoLog.SetColor(enlog.ColorRed)
 l.InfoLog.GetColor() // returns 31
 ```
 
+## Road map
+
+Road map for future releases:
+- custom date and time format of logs
+
 ## Running tests
 
 Ensure that you have working mongo database and pass to test MONGO_HOST and MONGO_PORT:
