@@ -1,0 +1,16 @@
+base: '/enlog/'
+title: 'malekim/enlog'
+dest: 'docs'
+description: 'An enchanted logging library for GO. It supports colored output and writing to .log files.'
+themeConfig:
+  repo: 'malekim/enlog'
+  sidebar:
+    '/': [
+      {
+        title: 'Introduction',
+        collapsable: false,
+        children: [
+          '',
+        ]
+      }
+    ]
