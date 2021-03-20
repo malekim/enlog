@@ -1,7 +1,7 @@
 name: Vue press
 on:
   push:
-    branches: [feature/vuepress]
+    branches: [master]
 jobs:
   build:
     runs-on: ubuntu-latest
