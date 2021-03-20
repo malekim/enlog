@@ -31,15 +31,15 @@ type AfterLogEvent func(logType string, message string)
 
 // Enlog struct
 type Enlog struct {
-	InfoLog  logger
-	DebugLog logger
-	ErrorLog logger
-	TraceLog logger
+	InfoLog  *logger
+	DebugLog *logger
+	ErrorLog *logger
+	TraceLog *logger
 	AfterLog AfterLogEvent
 }
 
-func newLog(prefix string, useFile bool, filePath string, color uint8) logger {
-	l := logger{
+func newLog(prefix string, useFile bool, filePath string, color uint8) *logger {
+	l := &logger{
 		handler:  nil,
 		prefix:   prefix,
 		useFile:  useFile,
