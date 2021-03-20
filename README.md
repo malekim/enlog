@@ -206,7 +206,6 @@ Road map for future releases:
 
 ## Running tests
 
-Ensure that you have working mongo database and pass to test MONGO_HOST and MONGO_PORT:
 ```bash
 go test -gcflags=-l -coverprofile=coverage.txt -covermode=atomic ./... &&  go tool cover -html=coverage.txt
 ```
