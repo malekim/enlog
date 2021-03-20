@@ -128,7 +128,7 @@ errorLog := l.ErrorLog
 traceLog := l.TraceLog
 ```
 
-Examples will use InfoLog, but each of those log types are customizable in the same way.
+Examples use InfoLog, but each of those log types are customizable in the same way.
 
 ### Prefix
 
