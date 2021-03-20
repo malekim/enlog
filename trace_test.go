@@ -21,9 +21,6 @@ func TestTrace(t *testing.T) {
 	if ltype != "trace" {
 		t.Error("Expected", "trace", "got", ltype)
 	}
-
-	testFile(t, "trace")
-	testRemoveFiles(t, []string{"info", "debug", "error", "trace"})
 }
 
 func TestTracef(t *testing.T) {
@@ -53,7 +50,13 @@ func TestTracef(t *testing.T) {
 	if ltype != "trace" {
 		t.Error("Expected", "trace", "got", ltype)
 	}
+}
+
+func TestTraceFile(t *testing.T) {
+	l := New()
+	l.TraceLog.SetUseFile(true)
+	l.Trace("test")
 
 	testFile(t, "trace")
-	testRemoveFiles(t, []string{"info", "debug", "error", "trace"})
+	testRemoveFiles(t, []string{"trace"})
 }

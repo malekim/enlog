@@ -21,9 +21,6 @@ func TestDebug(t *testing.T) {
 	if ltype != "debug" {
 		t.Error("Expected", "debug", "got", ltype)
 	}
-
-	testFile(t, "debug")
-	testRemoveFiles(t, []string{"info", "debug", "error", "trace"})
 }
 
 func TestDebugf(t *testing.T) {
@@ -53,7 +50,13 @@ func TestDebugf(t *testing.T) {
 	if ltype != "debug" {
 		t.Error("Expected", "debug", "got", ltype)
 	}
+}
+
+func TestDebugFile(t *testing.T) {
+	l := New()
+	l.DebugLog.SetUseFile(true)
+	l.Debug("test")
 
 	testFile(t, "debug")
-	testRemoveFiles(t, []string{"info", "debug", "error", "trace"})
+	testRemoveFiles(t, []string{"debug"})
 }

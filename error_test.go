@@ -21,9 +21,6 @@ func TestError(t *testing.T) {
 	if ltype != "error" {
 		t.Error("Expected", "error", "got", ltype)
 	}
-
-	testFile(t, "error")
-	testRemoveFiles(t, []string{"info", "debug", "error", "trace"})
 }
 
 func TestErrorf(t *testing.T) {
@@ -53,7 +50,13 @@ func TestErrorf(t *testing.T) {
 	if ltype != "error" {
 		t.Error("Expected", "error", "got", ltype)
 	}
+}
+
+func TestErrorFile(t *testing.T) {
+	l := New()
+	l.ErrorLog.SetUseFile(true)
+	l.Error("test")
 
 	testFile(t, "error")
-	testRemoveFiles(t, []string{"info", "debug", "error", "trace"})
+	testRemoveFiles(t, []string{"error"})
 }
