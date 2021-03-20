@@ -161,6 +161,31 @@ l.InfoLog.GetFilePath() // returns "new.log"
 l.Info("Test message") // log shown in terminal and saved to new.log
 ```
 
+#### Single file log
+
+Sometimes it is necessary to save all log messages to single file.
+It is possible to set one file log for all log types.
+
+```go
+var l *Enlog = New()
+newFilePath := "single.log"
+l.InfoLog.SetFilePath(newFilePath)
+l.DebugLog.SetFilePath(newFilePath)
+l.TraceLog.SetFilePath(newFilePath)
+l.ErrorLog.SetFilePath(newFilePath)
+l.InfoLog.SetUseFile(true)
+l.DebugLog.SetUseFile(true)
+l.TraceLog.SetUseFile(true)
+l.ErrorLog.SetUseFile(true)
+
+l.Info("Info log is saved to single.log")
+l.Debug("Debug log is saved to single.log")
+l.Error("Error log is saved to single.log")
+l.Trace("Trace log is saved to single.log")
+```
+
+Setting filePath before useFile prevents enlog from creating default .log files.
+
 ### Colors
 
 To change default color you need to modify "color" parameter (uint8).
